@@ -8,10 +8,10 @@ const {
     Events 
 } = Matter;
 
-const cellsHorizontal = 20;
-const cellsVertical = 15;
 const width= window.innerWidth;
 const height = window.innerHeight;
+const cellsHorizontal = Math.floor(width / 50);
+const cellsVertical = Math.floor(height / 40);
 
 const unitLengthX = width / cellsHorizontal;
 const unitLengthY = height / cellsVertical;
@@ -191,7 +191,6 @@ const goal = Bodies.rectangle(
     }
 );
 World.add(world, goal);
-
 //Ball
 
 const ballRadius = Math.min(unitLengthX, unitLengthY) / 4;
@@ -203,7 +202,9 @@ const ball = Bodies.circle(
         label: 'ball',
         render: {
             fillStyle: 'blue'
-        }
+        },
+        frictionAir: 0.02,
+        frictionStatic: 0
     }
 );
 World.add(world, ball);
@@ -211,16 +212,16 @@ World.add(world, ball);
 document.addEventListener('keydown', event => {
     const {x, y} = ball.velocity;
     if (event.keyCode === 87) {
-        Body.setVelocity(ball, { x, y: y - 5});
+        Body.setVelocity(ball, { x, y: y -3});
     }
     if (event.keyCode === 68) {
-        Body.setVelocity(ball, { x: x + 5, y});
+        Body.setVelocity(ball, { x: x + 3, y});
     }
     if (event.keyCode === 83) {
-        Body.setVelocity(ball, { x, y: y + 5});
+        Body.setVelocity(ball, { x, y: y + 3});
     }
     if (event.keyCode === 65) {
-        Body.setVelocity(ball, { x: x - 5, y});
+        Body.setVelocity(ball, { x: x - 3, y});
     }
 });
 
